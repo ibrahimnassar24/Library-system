@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Library</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
+        <div class="container">
+            @Html.ActionLink("Library", "Index", "Book", new { area = "" }, new { @class = "navbar-brand" })
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li>@Html.ActionLink("Home", "Index", "Book", new { area = "" }, new { @class = "nav-link" })</li>
+                    @if (Session["username"] != null)
+                    {
+                        <li>@Html.ActionLink("Cart", "Index", "Cart", new { area = "" }, new { @class = "nav-link" })</li>
+                        if (Session["role"].ToString() == "admin")
+                        {
+                            <li>@Html.ActionLink("DashBoard", "Index", "DashBoard", new { area = "" }, new { @class = "nav-link" })</li>
+                        }
+                    }
+                </ul>
+                <ul class="navbar-nav flex-grow-1 float-end">
+                    @if (Session["username"] == null)
+                    {
+                        <li>@Html.ActionLink("Sign Up", "SignUp", "User", new { area = "" }, new { @class = "nav-link " })</li>
+                        <li>@Html.ActionLink("Sign In", "SignIn", "User", new { area = "" }, new { @class = "nav-link" })</li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Sign Out", "SignOut", "User", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink(Session["username"].ToString(), "Show", "User", new { area = "" }, new { @class = "nav-link" })</li>
+                        
+                    }
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Library System</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

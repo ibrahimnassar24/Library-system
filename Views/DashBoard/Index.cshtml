@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Administration Actions</h2>
+<a href="/dashboard/alloperations" class="btn btn-secondary">Get All Operations</a><br />
+<a href="/book/create" class="btn btn-secondary">Add New Book</a><br />
+<a href="/dashboard/addadmin" class="btn btn-secondary">Add New Admin</a><br />
+
+
+<button type="button"
+        class="btn btn-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#confirm-modal"
+        id="confirm">
+    Confirm Return
+</button>
+<div class="modal" id="confirm-modal" tabindex="-1">
+<div class="modal-dialog">
+    <div class="modal-content">
+        <form method="post" action="/dashboard/confirmreturn">
+            <div class="modal-header">
+                <h5 class="modal-title">Enter user name</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Enter the username for the person you want to confirm that he had returned the book he borrowed</p>
+                <input type="tel" class="form-control" name="username" />
+            </div>
+            <div class="modal-footer">
+
+                <button type="submit" class="btn btn-primary">Finish</button>
+            </div>
+        </form>
+    </div>
+</div>
+</div>

@@ -1,0 +1,51 @@
+﻿@model  List<LibrarySystem.Models.Operation>
+    <div>
+        <form action="/dashboard/alloperations">
+            <div>
+                <input type="search" name="q" placeholder="enter a username" class="form-control-md" style="margin:auto" id="search-field" />
+                <button type="submit">Search</button>
+            </div>
+        </form>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Operation Id</th>
+                    <th scope="col">UserName</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Pay Method</th>
+                    <th scope="col">Total Cost</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.UserName</td>
+                        <td>@item.Type</td>
+                        @{ 
+                            var date = (item.Date == null)
+                                ? "_"
+                                : item.Date.ToString();
+                        }
+                        <td>@date</td>
+                        <td>@item.Status</td>
+                        <td>@item.Pay_Method</td>
+                        <td>@item.Total_Cost</td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+    let field = document.querySelector("#search-field");
+    let btn = document.querySelector("#search-btn");
+    btn.addEventListener("click", (e) => {
+        location.href = "/book/index?q=" + field.value;
+    })
+    
+    </script>

@@ -1,0 +1,90 @@
+﻿@model  LibrarySystem.Models.User
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<div class="container-sm">
+
+    <form method="post" action="/user/edit">
+        <div class="row">
+            <div class="col-4">
+                <div class="row">
+                    <div class="col">
+                        <h3>Personal Info</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label for="first-name" class="form-label">First Name</label>
+                        <input type="text" class="form-control" id="first-name" name="first_name" placeholder="first name" value="@Model.First_Name">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="last-name" class="form-label">Last Name</label>
+                        <input type="text" class="form-control" id="last-name" name="last_name" placeholder="last name" value="@Model.Last_Name">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label for="Gender" class="form-label">Gender</label>
+                        <select name="gender" class="form-select">
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label for="birth-date" class="form-label">Birth Date</label>
+                        <input type="date" class="form-control" id="birth-date" name="date_of_birth" placeholder="last name" value="@Model.Last_Name">
+                    </div>
+                </div>
+                <div class="row">
+                    <h3>Contact info</h3>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="col-md-4 mb-3">
+                            <label for="email" class="form-label">E mail address</label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="email address" value="@Model.Email">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="col-md-4 mb-3">
+                            <label for="mobile-phone" class="form-label">Mobile Phone</label>
+                            <input type="text" class="form-control" id="mobile-phone" name="mobile_phone" placeholder="mobile phone " value="@Model.Mobile_Phone">
+                        </div>
+                    </div>
+                </div>
+                <drv class="row">
+                    <div class="col-md-4 mb-3">
+                        <label for="land-phone" class="form-label">Land Phone</label>
+                        <input type="text" class="form-control" id="land-phone" name="land_phone" placeholder="land phone number" value="@Model.Land_Phone">
+                    </div>
+                </drv>
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label for="address" class="form-label">Address</label>
+                        <input type="text" class="form-control" id="address" name="address" placeholder="country - city - area - street" value="@Model.Address">
+                    </div>
+                </div>
+                <div></div>
+            </div>
+            <div class="col-4">
+
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col"></div>
+            <div class="col-3">
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+            </div>
+        </div>
+
+    </form>
+
+
+</div>

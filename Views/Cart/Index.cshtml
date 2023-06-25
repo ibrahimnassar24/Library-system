@@ -1,0 +1,139 @@
+﻿@model  List<LibrarySystem.Models.Operation>
+@{
+    ViewBag.Title = "Cart";
+}
+
+<h2>Cart</h2>
+@{
+    double purchase_cost = 0;
+    double borrow_cost = 0;
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Book</th>
+            <th scope="col">Operation</th>
+            <th scope="col">Number Of Units</th>
+            <th scope="col">Price Per Unit</th>
+            <th scope="col">Total Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var op in Model)
+        {
+            foreach (var purchase in op.PurchaseOperations)
+            {
+                <tr>
+                    <td>
+                        <ul>
+                            <li>@purchase.Book.Title</li>
+                            <li>@purchase.Book.Edition</li>
+                            <li>@purchase.Book.Publisher</li>
+                        </ul>
+                    </td>
+                    <td>@op.Type</td>
+
+                    <td>@purchase.Copies</td>
+                    <td>@purchase.Book.Price_Of_Selling</td>
+                    @{
+                        var tol = Math.Round(purchase.Book.Price_Of_Selling * purchase.Copies, 2);
+                        purchase_cost += tol;
+                    }
+                    <td>@tol</td>
+
+                    <td>
+                        <button type="button" class="btn btn-secondary" onclick="removeFromCart(@purchase.Bookid)">Remove</button>
+                    </td>
+                </tr>
+            }
+            foreach (var borrow in op.BorrowOperations)
+            {
+                <tr>
+                    <td>
+                        <ul>
+                            <li>@borrow.Book.Title</li>
+                            <li>@borrow.Book.Edition <i>Edition</i></li>
+                            <li>@borrow.Book.Publisher</li>
+                        </ul>
+                    </td>
+                    <td>@op.Type</td>
+
+                    <td>1</td>
+                    <td>@borrow.Book.Price_Of_Reservation</td>
+                    @{
+                        var tol = Math.Round(borrow.Book.Price_Of_Reservation, 2);
+                        borrow_cost += tol;
+                    }
+                    <td>@tol</td>
+                    <td>
+                        <button type="button" class="btn btn-secondary" onclick="removeFromCart(@borrow.BookId)">Remove</button>
+                    </td>
+                </tr>
+            }
+        }
+        <tr>
+            <td colspan="4"></td>
+            <td>
+                @{
+                    double total = Math.Round(purchase_cost + borrow_cost, 2);
+                }
+                @if (total > 0)
+                {
+                    <button type="button"
+                            class="btn btn-primary"
+                            data-bs-toggle="modal"
+                            data-bs-target="#confirm-modal"
+                            id="confirm">
+
+                        Confirm (@total $)
+                    </button>
+                }
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="modal" id="confirm-modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" action="/cart/finish">
+                <div class="modal-header">
+                    <h5 class="modal-title">Payment Method</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Choose a payment method to use</p>
+                    <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="pay_method">
+                        <option selected value="cache">Cache</option>
+                        <option value="vodafone cache">Vodafone cache</option>
+                        <option value="credit card">Credit Card</option>
+                    </select>
+                </div>
+                <div class="modal-footer">
+
+                    <button type="submit" class="btn btn-primary">Finish</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    let btn = document.querySelector("confirm");
+    btn.addEventListener("click", () => {
+        fetch("operation/finish")
+            .then((val) => {
+                console.log(val);
+            })
+    })
+
+    function removeFromCart(id) {
+        fetch("/operation/remove/" + id)
+            .then(res => {
+                if (res.status == 204) {
+                    location.reload();
+                    console.log("deleted");
+                }
+            })
+    }
+</script>

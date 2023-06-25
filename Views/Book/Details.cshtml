@@ -1,0 +1,88 @@
+﻿@model  LibrarySystem.Models.Book
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<h4>@Model.Title</h4>
+
+<ul>
+    <li>Author : @Model.Author</li>
+    <li>Pages : @Model.Pages</li>
+    <li>Publisher : @Model.Publisher</li>
+    <li>Published On: @Model.Published_On</li>
+    <li>Purchase Price: @Model.Price_Of_Selling $</li>
+    <li>Price of Reservation : @Model.Price_Of_Reservation $</li>
+</ul>
+
+<button type="button"
+        id ="add-btn"
+        class="btn btn-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#add-modal">
+    Add To Cart
+</button>
+
+<div class="modal" id="add-modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" action="/operation/purchase">
+                <div class="modal-header">
+                    <h5 class="modal-title">Copies</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Select the number of copies you want</p>
+                    <select class="form-select" name="copies">
+                        <option value="1" selected>1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                    <input type="hidden" name="bookid" value="@Model.Id" />
+                </div>
+                <div class="modal-footer">
+
+                    <button type="submit" class="btn btn-primary">Finish</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<button type="button"
+        id= "borrow-btn"
+        class="btn btn-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#borrow-modal">
+    Borrow
+</button>
+
+
+<div class="modal" id="borrow-modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" action="/operation/borrow">
+                <div class="modal-header">
+                    <h5 class="modal-title">Copies</h5>
+                    <button type="button" id="borrow-close" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>you will have the book for @Model.Reservation_Period days</p>
+                    <p>it will cost you @Model.Price_Of_Reservation $</p>
+                    <input type="hidden" name="bookid" value="@Model.Id" />
+                </div>
+                <div class="modal-footer">
+
+                    <button type="submit" class="btn btn-primary">Finish</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+

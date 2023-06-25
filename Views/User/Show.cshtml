@@ -1,0 +1,24 @@
+﻿@model  LibrarySystem.Models.User
+
+@{
+    ViewBag.Title = "Show";
+}
+
+<h3>@Model.UserName</h3>
+<h4>Personal Information</h4>
+<ul>
+    <li>First name : @Model.First_Name</li>
+    <li>Last name: @Model.Last_Name</li>
+    <li>Birth date: @Model.Date_Of_Birth.Date.ToString()</li>
+
+</ul>
+<br />
+<h3>Contact Information</h3>
+<ul>
+    <li>E mail address: @Model.Email</li>
+    <li>Mobile phone: @Model.Mobile_Phone</li>
+    <li>Land phone: @Model.Land_Phone</li>
+    <li>Address : @Model.Address</li>
+</ul>
+<br />
+<a href="/user/edit" class="btn btn-secondary">Edit Info</a>

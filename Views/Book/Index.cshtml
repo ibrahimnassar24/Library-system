@@ -1,0 +1,30 @@
+﻿@model  List<LibrarySystem.Models.Book>
+<div>
+    <form accept-charset="/book/index">
+        <div>
+            <input type="search" name="q" placeholder="enter a title or category" class="form-control-md" style="margin:auto" id="search-field" />
+            <button id="search-btn">Search</button>
+        </div>
+    </form>
+    <table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Author</th>
+            <th scope="col">Date</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td><a href="/book/details/@item.Id">@item.Title</a></td>
+                <td>@item.Author</td>
+                <td>@item.Published_On.ToShortDateString()</td>
+            </tr>
+        }
+    </tbody>
+    </table>
+</div>
+
